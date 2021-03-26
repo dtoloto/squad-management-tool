@@ -4,12 +4,14 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles';
 import theme from './styles/theme';
 import Routes from './routes';
+import Navbar from './components/Navbar';
 
 const App: React.FC = () => {
   return (
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <Navbar />
         <Routes />
       </ThemeProvider>
     </Router>
