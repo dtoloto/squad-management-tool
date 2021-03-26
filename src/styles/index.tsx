@@ -12,6 +12,10 @@ export default createGlobalStyle`
     transition: .2s;
   }
 
+  body{
+    background: ${theme.colors.extraLight};
+  }
+
   a{
     text-decoration: none;
     color: inherit;
@@ -41,5 +45,11 @@ export default createGlobalStyle`
   textarea {
     font-size: 16px;
     font-size: 1rem;
+  }
+
+  .container{
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
   }
 `;

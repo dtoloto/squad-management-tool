@@ -4,6 +4,7 @@ export const Container = styled.header`
   width: 100%;
   padding: 10px 25px;
   height: 70px;
+  margin-bottom: 2rem;
   background: linear-gradient(
     to right,
     ${({ theme }) => theme.colors.secondary},
