@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaPlus } from 'react-icons/fa';
+import Button from '../../components/Button';
 import Card, { Header, Body } from '../../components/Card';
 import Col from '../../components/Col';
 import HighlightPlayers from '../../components/HighlightPlayers';
@@ -28,12 +30,12 @@ const data = [
   {
     key: '1',
     name: 'Barcelona',
-    description: 'Barcelona Squad',
+    description: 'ZBarcelona Squad',
   },
   {
     key: '2',
     name: 'Real Madrid',
-    description: 'Real Madrid Squad',
+    description: 'AReal Madrid Squad',
   },
   {
     key: '3',
@@ -89,6 +91,9 @@ const Home: React.FC = () => {
           <Card style={style.teamsCard}>
             <Header>
               <Title level={2}>My Teams</Title>
+              <Button link="/new">
+                <FaPlus />
+              </Button>
             </Header>
             <Body>
               <Table header={header} data={data} />
