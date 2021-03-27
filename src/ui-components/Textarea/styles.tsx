@@ -4,11 +4,11 @@ export const Container = styled.div`
   margin-bottom: 1rem;
 `;
 
-interface IStyledInput {
+interface IStyledTextarea {
   [string: string]: any;
 }
 
-export const StyledInput = styled.input<IStyledInput>`
+export const StyledTextarea = styled.textarea<IStyledTextarea>`
   width: 100%;
   background: #fff;
   padding: 10px 15px;
@@ -17,6 +17,7 @@ export const StyledInput = styled.input<IStyledInput>`
   -webkit-appearance: none;
   border: 1px solid ${({ theme }) => theme.colors.light};
   font-size: 1rem;
+  min-height: 200px;
 
   &.error {
     border: 1px solid ${({ theme }) => theme.colors.secondary};

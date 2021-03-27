@@ -1,26 +1,37 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable no-param-reassign */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useField } from '@unform/core';
-import { Container, Label, StyledInput } from './styles';
+import { Container, Label, StyledTextarea } from './styles';
 import IF from '../../components/IF';
 
 interface Props {
   name: string;
   label?: string;
+  maxLength?: number;
 }
 
-type InputProps = JSX.IntrinsicElements['input'] & Props;
+type TextareaProps = JSX.IntrinsicElements['textarea'] & Props;
 
-const Input: React.FC<InputProps> = ({ name, label, ...rest }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+const Textarea: React.FC<TextareaProps> = ({
+  name,
+  label,
+  maxLength,
+  ...rest
+}) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { fieldName, defaultValue, registerField, error } = useField(name);
+  const [length, setLength] = useState<number>(0);
+
+  const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    setLength(e.currentTarget.value.length);
+  };
 
   useEffect(() => {
     registerField({
       name: fieldName,
-      ref: inputRef,
+      ref: textareaRef,
       getValue: ref => {
         return ref.current.value;
       },
@@ -39,13 +50,16 @@ const Input: React.FC<InputProps> = ({ name, label, ...rest }) => {
         <IF condition={!!label}>
           <Label htmlFor={fieldName} className={error ? 'error' : ''}>
             {label}
+            <IF condition={!!maxLength}>{` (${length}/${maxLength})`}</IF>
           </Label>
         </IF>
-        <StyledInput
+        <StyledTextarea
+          onChange={handleChange}
           className={error ? 'error' : ''}
           id={fieldName}
-          ref={inputRef}
+          ref={textareaRef}
           defaultValue={defaultValue}
+          maxLength={maxLength}
           {...rest}
         />
       </Container>
@@ -53,4 +67,4 @@ const Input: React.FC<InputProps> = ({ name, label, ...rest }) => {
   );
 };
 
-export default Input;
+export default Textarea;
