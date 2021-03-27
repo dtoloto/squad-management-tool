@@ -22,8 +22,8 @@ export const Container = styled.button<IContainer>`
   color: #fff;
   background: linear-gradient(
     to bottom,
-    ${({ theme }) => theme.colors.secondary},
-    ${({ theme }) => theme.colors.primary}
+    ${({ theme }) => theme.colors.secondary} -70%,
+    ${({ theme }) => theme.colors.primary} 130%
   );
   font-size: 1rem;
 

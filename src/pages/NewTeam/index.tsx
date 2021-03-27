@@ -11,8 +11,8 @@ import theme from '../../styles/theme';
 import TeamForm from '../../components/TeamForm';
 import { teamSchema } from '../../validations/team/index';
 import getValidationErrors from '../../utils/getValidationErrors';
-import Button from '../../ui-components/Button';
 import { teamTypes } from '../../utils/teamType';
+import SquadSetup from '../../components/SquadSetup';
 
 interface IStyle {
   [key: string]: CSSProperties;
@@ -50,22 +50,27 @@ const NewTeam: React.FC = () => {
   return (
     <Section>
       <Row colgap={24} rowgap={24}>
-        <Col span={12}>
+        <Col span={12} md={12} sm={12} xs={12}>
           <Card>
             <Header>
               <Title level={2}>Create your team</Title>
             </Header>
             <Body style={style.cardBody}>
-              <Title style={style.formSubtitle} level={3}>
-                Team Information
-              </Title>
               <Form
                 ref={formRef}
                 onSubmit={handleSubmit}
                 initialData={{ type: teamTypes[1].id }}
               >
+                <Title style={style.formSubtitle} level={3}>
+                  Team Information
+                </Title>
                 <TeamForm />
-                <Button type="submit">Enviar</Button>
+                <br />
+                <br />
+                <Title style={style.formSubtitle} level={3}>
+                  Configure Squad
+                </Title>
+                <SquadSetup />
               </Form>
             </Body>
           </Card>
