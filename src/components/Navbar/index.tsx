@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Title from '../Title';
+import Title from '../../ui-components/Title';
 import { Container, Logo } from './styles';
 import logo from '../../assets/logo.png';
 

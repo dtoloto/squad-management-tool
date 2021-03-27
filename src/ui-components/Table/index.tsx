@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TiArrowUnsorted } from 'react-icons/ti';
 import { MdEdit, MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import IF from '../IF';
+import IF from '../../components/IF';
 import { IData, IHead } from './interfaces';
 
 import {

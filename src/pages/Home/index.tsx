@@ -1,14 +1,14 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
-import Button from '../../components/Button';
-import Card, { Header, Body } from '../../components/Card';
-import Col from '../../components/Col';
+import Button from '../../ui-components/Button';
+import Card, { Header, Body } from '../../ui-components/Card';
+import Col from '../../ui-components/Col';
 import HighlightPlayers from '../../components/HighlightPlayers';
-import List from '../../components/List';
-import Row from '../../components/Row';
-import { Section } from '../../components/Section';
-import Table from '../../components/Table';
-import Title from '../../components/Title';
+import List from '../../ui-components/List';
+import Row from '../../ui-components/Row';
+import { Section } from '../../ui-components/Section';
+import Table from '../../ui-components/Table';
+import Title from '../../ui-components/Title';
 import theme from '../../styles/theme';
 
 const header = [

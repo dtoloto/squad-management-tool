@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { CSSProperties } from 'styled-components';
-import IF from '../IF';
+import IF from '../../components/IF';
 
 import { Container, Loading } from './styles';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from '../../Avatar';
+import Avatar from '../../../ui-components/Avatar';
 
 import { Container, Label, Score, Content, AvatarBox } from './styles';
 
