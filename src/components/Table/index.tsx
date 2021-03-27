@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TiArrowUnsorted } from 'react-icons/ti';
-import { MdEdit } from 'react-icons/md';
+import { MdEdit, MdDelete } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import IF from '../IF';
 import { IData, IHead } from './interfaces';
 
@@ -14,6 +15,8 @@ import {
   SortIcon,
 } from './styles';
 import Tooltip from '../Tooltip';
+import { Icon } from '../Icon';
+import theme from '../../styles/theme';
 
 interface IProps {
   header: IHead[];
@@ -57,6 +60,10 @@ const Table: React.FC<IProps> = ({ header, data }) => {
     }
   };
 
+  const handleDelete = (item: string | number) => {
+    console.log(item);
+  };
+
   return (
     <ResponsiveTable>
       <Container>
@@ -84,9 +91,23 @@ const Table: React.FC<IProps> = ({ header, data }) => {
               {header.map(head => (
                 <TD key={`${item.key}_${head.key}`}>{item[head.dataIndex]}</TD>
               ))}
-              <TD>
+              <TD style={{ textAlign: 'right', color: theme.colors.secondary }}>
                 <Tooltip label="Edit">
-                  <MdEdit />
+                  <Link to={item.link}>
+                    <Icon>
+                      <MdEdit />
+                    </Icon>
+                  </Link>
+                </Tooltip>
+                <Tooltip label="Delete">
+                  <Icon
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      handleDelete(item.key);
+                    }}
+                  >
+                    <MdDelete />
+                  </Icon>
                 </Tooltip>
               </TD>
             </TR>

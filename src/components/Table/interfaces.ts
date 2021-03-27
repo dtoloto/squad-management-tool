@@ -9,6 +9,6 @@ export interface IHead {
 
 export interface IData {
   key: string | number;
-  action?: React.ReactNode;
+  link: string;
   [key: string]: string | number | React.ReactNode;
 }

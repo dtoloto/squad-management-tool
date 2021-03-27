@@ -31,16 +31,19 @@ const data = [
     key: '1',
     name: 'Barcelona',
     description: 'ZBarcelona Squad',
+    link: '/edit/1',
   },
   {
     key: '2',
     name: 'Real Madrid',
     description: 'AReal Madrid Squad',
+    link: '/edit/2',
   },
   {
     key: '3',
     name: 'Corinthians',
     description: 'Corinthians Squad',
+    link: '/edit/3',
   },
 ];
 
