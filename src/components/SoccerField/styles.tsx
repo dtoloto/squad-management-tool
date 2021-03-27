@@ -4,8 +4,8 @@ interface IProps {
   layout: 'vertical' | 'horizontal';
 }
 
-const horizontal = 'calc(9 / 16 * 100%)';
-const vertical = 'calc(16 / 9 * 100%)';
+const horizontal = 'calc(3 / 4 * 100%)';
+const vertical = 'calc(4 / 3 * 100%)';
 
 export const Container = styled.div<IProps>`
   width: 100%;

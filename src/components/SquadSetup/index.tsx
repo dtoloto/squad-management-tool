@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../ui-components/Button';
 import Col from '../../ui-components/Col';
 import Row from '../../ui-components/Row';
+import Select from '../../ui-components/Select';
 import { squadFormations } from '../../utils/squadFormations';
 import SquadField from '../SquadField';
 
 // import { Container } from './styles';
 
 const SquadSetup: React.FC = () => {
+  const [formation, setFormation] = useState<string>(squadFormations[0].value);
+
   const handleDrag = (e: any) => {
     e.dataTransfer.setData(
       'player',
       JSON.stringify({ id: 123, name: 'Cristiano Ronaldo' }),
     );
+  };
+
+  const handleFormation = ({ value }: any) => {
+    setFormation(value);
   };
 
   return (
@@ -22,7 +29,15 @@ const SquadSetup: React.FC = () => {
           Teste
         </div>
 
-        <SquadField formation={squadFormations[4]} />
+        <Select
+          onChange={handleFormation}
+          name="formation"
+          label="Formation"
+          options={squadFormations}
+        />
+
+        <SquadField formation={formation} />
+
         <Button block type="submit">
           Enviar
         </Button>

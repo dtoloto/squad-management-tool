@@ -13,6 +13,7 @@ import { teamSchema } from '../../validations/team/index';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { teamTypes } from '../../utils/teamType';
 import SquadSetup from '../../components/SquadSetup';
+import { squadFormations } from '../../utils/squadFormations';
 
 interface IStyle {
   [key: string]: CSSProperties;
@@ -59,14 +60,15 @@ const NewTeam: React.FC = () => {
               <Form
                 ref={formRef}
                 onSubmit={handleSubmit}
-                initialData={{ type: teamTypes[1].id }}
+                initialData={{
+                  type: teamTypes[1].id,
+                  formation: squadFormations[0].value,
+                }}
               >
                 <Title style={style.formSubtitle} level={3}>
                   Team Information
                 </Title>
                 <TeamForm />
-                <br />
-                <br />
                 <Title style={style.formSubtitle} level={3}>
                   Configure Squad
                 </Title>

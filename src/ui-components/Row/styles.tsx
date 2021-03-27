@@ -6,6 +6,8 @@ interface IProps {
 }
 
 export const Container = styled.div<IProps>`
+  width: 100%;
+  max-width: 100%;
   display: grid;
   grid-row-gap: ${({ rowgap }) => (rowgap ? `${rowgap}px` : 0)};
   grid-column-gap: ${({ colgap }) => (colgap ? `${colgap}px` : 0)};
