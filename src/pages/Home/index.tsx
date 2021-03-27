@@ -76,6 +76,9 @@ const style = {
     marginBottom: '.8rem',
     fontSize: '1rem',
   },
+  teamsCard: {
+    minHeight: '100%',
+  },
 };
 
 const Home: React.FC = () => {
@@ -83,7 +86,7 @@ const Home: React.FC = () => {
     <Section>
       <Row colgap={24} rowgap={24}>
         <Col span={6} md={12} sm={12} xs={12}>
-          <Card>
+          <Card style={style.teamsCard}>
             <Header>
               <Title level={2}>My Teams</Title>
             </Header>

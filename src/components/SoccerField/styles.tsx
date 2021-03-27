@@ -41,4 +41,15 @@ export const Container = styled.div<IProps>`
     border-radius: 100%;
     transform: translateX(-50%) translateY(-50%);
   }
+
+  @media screen and (max-width: 600px) {
+    padding-top: ${vertical};
+
+    &:before {
+      height: 1px;
+      width: 100%;
+      top: 50%;
+      left: 0;
+    }
+  }
 `;
