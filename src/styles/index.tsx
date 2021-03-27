@@ -22,8 +22,8 @@ export default createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6{
-    font-weight: 500;
-    color: ${theme.colors.dark};
+    font-weight: bolder;
+    color: ${theme.colors.primary};
   }
 
   input,
@@ -45,11 +45,5 @@ export default createGlobalStyle`
   textarea {
     font-size: 16px;
     font-size: 1rem;
-  }
-
-  .container{
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
   }
 `;

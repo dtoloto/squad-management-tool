@@ -1,19 +1,21 @@
 import React from 'react';
 
-import { Container, Header, Body } from './styles';
+import { Container, Header as CardHeader, Body as CardBody } from './styles';
 
 interface IProps {
-  header?: string | React.ReactNode;
-  body?: string | React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const Card: React.FC<IProps> = ({ header, body }) => {
-  return (
-    <Container>
-      <Header>{header}</Header>
-      <Body>{body}</Body>
-    </Container>
-  );
+export const Header: React.FC<IProps> = ({ children }) => {
+  return <CardHeader>{children}</CardHeader>;
+};
+
+export const Body: React.FC<IProps> = ({ children }) => {
+  return <CardBody>{children}</CardBody>;
+};
+
+const Card: React.FC<IProps> = ({ children }) => {
+  return <Container>{children}</Container>;
 };
 
 export default Card;

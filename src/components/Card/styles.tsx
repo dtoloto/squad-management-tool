@@ -4,13 +4,14 @@ export const Container = styled.div`
   width: 100%;
   background: #fff;
   border-radius: ${({ theme }) => theme.borderRadius};
+  box-shadow: ${({ theme }) => theme.boxShadow};
 `;
 
 export const Header = styled.div`
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.light};
 `;
 
 export const Body = styled.div`
-  padding: 1rem;
+  padding: 1.5rem 1rem;
 `;
