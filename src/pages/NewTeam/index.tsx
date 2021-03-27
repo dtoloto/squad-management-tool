@@ -12,6 +12,7 @@ import TeamForm from '../../components/TeamForm';
 import { teamSchema } from '../../validations/team/index';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Button from '../../ui-components/Button';
+import { teamTypes } from '../../utils/teamType';
 
 interface IStyle {
   [key: string]: CSSProperties;
@@ -34,6 +35,7 @@ const NewTeam: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = async (formData: any) => {
+    console.log(formData);
     try {
       formRef.current?.setErrors({});
       await teamSchema.validate(formData, {
@@ -57,7 +59,11 @@ const NewTeam: React.FC = () => {
               <Title style={style.formSubtitle} level={3}>
                 Team Information
               </Title>
-              <Form ref={formRef} onSubmit={handleSubmit}>
+              <Form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                initialData={{ type: teamTypes[1].id }}
+              >
                 <TeamForm />
                 <Button type="submit">Enviar</Button>
               </Form>

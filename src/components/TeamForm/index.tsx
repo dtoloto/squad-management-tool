@@ -1,8 +1,13 @@
 import React from 'react';
 import Col from '../../ui-components/Col';
 import Input from '../../ui-components/Input';
+import InputTag from '../../ui-components/InputTag';
+import RadioInput from '../../ui-components/RadioInput';
 import Row from '../../ui-components/Row';
 import Textarea from '../../ui-components/Textarea';
+import { teamTypes } from '../../utils/teamType';
+
+const tags = ['teste', 'teste1'];
 
 const TeamForm: React.FC = () => {
   return (
@@ -17,6 +22,8 @@ const TeamForm: React.FC = () => {
           label="Team website"
           placeholder="http://myteam.com"
         />
+        <RadioInput label="Team type" name="type" options={teamTypes} />
+        <InputTag name="tags" label="Tags" initialData={tags} />
       </Col>
     </Row>
   );
