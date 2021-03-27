@@ -1,6 +1,7 @@
 import React from 'react';
 import Card, { Header, Body } from '../../components/Card';
 import Col from '../../components/Col';
+import HighlightPlayers from '../../components/HighlightPlayers';
 import List from '../../components/List';
 import Row from '../../components/Row';
 import { Section } from '../../components/Section';
@@ -92,7 +93,7 @@ const Home: React.FC = () => {
           </Card>
         </Col>
         <Col span={6} md={12} sm={12} xs={12}>
-          <Card>
+          <Card style={{ marginBottom: 24 }}>
             <Header>
               <Title level={2}>Top 5</Title>
             </Header>
@@ -113,6 +114,7 @@ const Home: React.FC = () => {
               </Row>
             </Body>
           </Card>
+          <HighlightPlayers />
         </Col>
       </Row>
     </Section>
