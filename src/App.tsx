@@ -5,6 +5,7 @@ import GlobalStyle from './styles';
 import theme from './styles/theme';
 import Routes from './routes';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
         <GlobalStyle />
         <Navbar />
         <Routes />
+        <Footer>2020 - All rights reserved</Footer>
       </ThemeProvider>
     </Router>
   );
