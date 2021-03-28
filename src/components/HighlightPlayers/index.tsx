@@ -27,7 +27,8 @@ const HighlightPlayers: React.FC<IProps> = ({
         <IF condition={!!mostPickedPlayer && !!lessPickedPlayer}>
           <FirstCard>
             <PlayerCard
-              player={mostPickedPlayer?.initials}
+              player={mostPickedPlayer?.player}
+              initials={mostPickedPlayer?.initials}
               score={mostPickedPlayer?.percentage}
               label="Most picked player"
               featured
@@ -35,7 +36,8 @@ const HighlightPlayers: React.FC<IProps> = ({
           </FirstCard>
           <SecondCard>
             <PlayerCard
-              player={lessPickedPlayer?.initials}
+              player={lessPickedPlayer?.player}
+              initials={lessPickedPlayer?.initials}
               score={lessPickedPlayer?.percentage}
               label="Less picked player"
             />

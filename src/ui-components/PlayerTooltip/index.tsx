@@ -10,7 +10,8 @@ export const PlayerBox = styled.div`
   z-index: 2;
   cursor: help;
 
-  &:hover {
+  &:hover,
+  &:focus {
     > div {
       opacity: 1;
       transform: scale(1);

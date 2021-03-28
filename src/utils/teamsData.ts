@@ -1,15 +1,18 @@
 /* eslint-disable operator-assignment */
 /* eslint-disable no-param-reassign */
 import { TeamData } from '../context/interfaces';
+import { IPlayer } from '../interfaces/player';
 
 export interface IFeaturedPlayer {
   initials: string;
   percentage: number;
+  player: IPlayer;
 }
 
 interface IPickedPlayer {
   name: string;
   occurence: number;
+  player: IPlayer;
 }
 
 const sortByOcurrence = (a: IPickedPlayer, b: IPickedPlayer) => {
@@ -39,7 +42,7 @@ export const pickedPlayer = (
         return true;
       });
       if (!exists) {
-        players.push({ name: player.name, occurence: 1 });
+        players.push({ name: player.name, occurence: 1, player });
       }
       return true;
     }),
@@ -52,6 +55,7 @@ export const pickedPlayer = (
     const initials = name.shift().charAt(0) + name.pop().charAt(0);
 
     return {
+      player: sortedList[sortedList.length - 1].player,
       initials,
       percentage: Number(
         (
@@ -65,6 +69,7 @@ export const pickedPlayer = (
   const initials = name.shift().charAt(0) + name.pop().charAt(0);
 
   return {
+    player: sortedList[0].player,
     initials,
     percentage: Number(
       ((sortedList[0].occurence * 100) / teams.length).toFixed(1),

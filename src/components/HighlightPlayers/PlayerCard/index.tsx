@@ -1,23 +1,43 @@
 import React from 'react';
+import { IPlayer } from '../../../interfaces/player';
 import Avatar from '../../../ui-components/Avatar';
+import { PlayerBox, PlayerData } from '../../../ui-components/PlayerTooltip';
 
 import { Container, Label, Score, Content, AvatarBox } from './styles';
 
 interface IProps {
   label: string;
   score: number;
-  player: string;
+  initials: string;
+  player: IPlayer;
   featured?: boolean;
 }
 
-const PlayerCard: React.FC<IProps> = ({ label, score, player, featured }) => {
+const styles = {
+  playerTooltip: { left: '50%', top: '-50%', color: '#fff' },
+};
+
+const PlayerCard: React.FC<IProps> = ({
+  label,
+  score,
+  player,
+  initials,
+  featured,
+}) => {
   return (
     <Container>
       <Label>{label}</Label>
       <Content>
-        <AvatarBox>
-          <Avatar player={player} featured={featured} />
-        </AvatarBox>
+        <PlayerBox>
+          <PlayerData style={styles.playerTooltip}>
+            <p>{`Name: ${player?.name}`}</p>
+            <p>{`Age: ${player?.age}`}</p>
+            <p>{`Nationality: ${player?.nationality}`}</p>
+          </PlayerData>
+          <AvatarBox>
+            <Avatar player={initials} featured={featured} />
+          </AvatarBox>
+        </PlayerBox>
         <Score>{`${score}%`}</Score>
       </Content>
     </Container>
