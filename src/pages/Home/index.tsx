@@ -14,8 +14,7 @@ import { useTeams } from '../../context/TeamsContext';
 import { IData } from '../../ui-components/Table/interfaces';
 import {
   IFeaturedPlayer,
-  mostPickedPlayer,
-  lessPickedPlayer,
+  pickedPlayer,
   ageAverage,
   ITeamAverage,
 } from '../../utils/teamsData';
@@ -58,8 +57,8 @@ const Home: React.FC = () => {
     setData(
       teams.map(team => ({ ...team, key: team.id, link: `/edit/${team.id}` })),
     );
-    setMostPicked(mostPickedPlayer(teams));
-    setLessPicked(lessPickedPlayer(teams));
+    setMostPicked(pickedPlayer(teams, 'highest'));
+    setLessPicked(pickedPlayer(teams, 'lowest'));
     setHighestAverage(ageAverage(teams, 'highest'));
     setLowestAverage(ageAverage(teams, 'lowest'));
   }, [teams]);

@@ -1,3 +1,5 @@
+/* eslint-disable operator-assignment */
+/* eslint-disable no-param-reassign */
 import { TeamData } from '../context/interfaces';
 
 export interface IFeaturedPlayer {
@@ -5,21 +7,68 @@ export interface IFeaturedPlayer {
   percentage: number;
 }
 
-export const mostPickedPlayer = (teams: TeamData[]): IFeaturedPlayer => {
-  const total = teams.length;
+interface IPickedPlayer {
+  name: string;
+  occurence: number;
+}
 
-  return {
-    initials: 'RR',
-    percentage: 75.5,
-  };
+const sortByOcurrence = (a: IPickedPlayer, b: IPickedPlayer) => {
+  if (a.occurence < b.occurence) {
+    return -1;
+  }
+  if (a.occurence > b.occurence) {
+    return 1;
+  }
+  return 0;
 };
 
-export const lessPickedPlayer = (teams: TeamData[]): IFeaturedPlayer => {
-  const total = teams.length;
+export const pickedPlayer = (
+  teams: TeamData[],
+  type: 'highest' | 'lowest',
+): IFeaturedPlayer => {
+  const players: IPickedPlayer[] = [];
+
+  teams.map(team =>
+    team.players.map(player => {
+      let exists = false;
+      players.map(item => {
+        if (item.name === player.name) {
+          exists = true;
+          item.occurence = item.occurence + 1;
+        }
+        return true;
+      });
+      if (!exists) {
+        players.push({ name: player.name, occurence: 1 });
+      }
+      return true;
+    }),
+  );
+
+  const sortedList = players.sort(sortByOcurrence);
+
+  if (type === 'highest') {
+    const name = sortedList[sortedList.length - 1].name.split(' ');
+    const initials = name.shift().charAt(0) + name.pop().charAt(0);
+
+    return {
+      initials,
+      percentage: Number(
+        (
+          (sortedList[sortedList.length - 1].occurence * 100) /
+          teams.length
+        ).toFixed(1),
+      ),
+    };
+  }
+  const name = sortedList[0].name.split(' ');
+  const initials = name.shift().charAt(0) + name.pop().charAt(0);
 
   return {
-    initials: 'RR',
-    percentage: 24.5,
+    initials,
+    percentage: Number(
+      ((sortedList[0].occurence * 100) / teams.length).toFixed(1),
+    ),
   };
 };
 

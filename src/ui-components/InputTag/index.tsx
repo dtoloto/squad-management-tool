@@ -2,7 +2,7 @@
 import { useField } from '@unform/core';
 import React, { useEffect, useRef, useState } from 'react';
 import IF from '../../components/IF';
-import Tag from '../Tag';
+import Tag from '../Textarea/Tag';
 
 import { Container, Label, Input } from './styles';
 

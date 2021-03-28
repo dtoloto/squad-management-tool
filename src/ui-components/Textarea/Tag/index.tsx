@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { IoCloseOutline } from 'react-icons/io5';
-import IF from '../../components/IF';
+import IF from '../../../components/IF';
 
 import { Container, RemoveButton } from './styles';
 
