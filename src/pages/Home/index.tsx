@@ -16,6 +16,8 @@ import {
   IFeaturedPlayer,
   mostPickedPlayer,
   lessPickedPlayer,
+  ageAverage,
+  ITeamAverage,
 } from '../../utils/teamsData';
 
 const header = [
@@ -30,34 +32,6 @@ const header = [
     dataIndex: 'description',
     title: 'Description',
     sort: true,
-  },
-];
-
-const list = [
-  {
-    label: 'Barcelona',
-    score: 29.9,
-    link: '/',
-  },
-  {
-    label: 'Real Madrid',
-    score: 29.9,
-    link: '/',
-  },
-  {
-    label: 'Inter de Milão',
-    score: 29.9,
-    link: '/',
-  },
-  {
-    label: 'Milan',
-    score: 29.9,
-    link: '/',
-  },
-  {
-    label: 'PSG',
-    score: 29.9,
-    link: '/',
   },
 ];
 
@@ -77,6 +51,8 @@ const Home: React.FC = () => {
   const [data, setData] = useState<IData[]>([]);
   const [lessPicked, setLessPicked] = useState<IFeaturedPlayer>();
   const [mostPicked, setMostPicked] = useState<IFeaturedPlayer>();
+  const [highestAverage, setHighestAverage] = useState<ITeamAverage[]>([]);
+  const [lowestAverage, setLowestAverage] = useState<ITeamAverage[]>([]);
 
   useEffect(() => {
     setData(
@@ -84,6 +60,8 @@ const Home: React.FC = () => {
     );
     setMostPicked(mostPickedPlayer(teams));
     setLessPicked(lessPickedPlayer(teams));
+    setHighestAverage(ageAverage(teams, 'highest'));
+    setLowestAverage(ageAverage(teams, 'lowest'));
   }, [teams]);
 
   return (
@@ -113,13 +91,13 @@ const Home: React.FC = () => {
                   <Title level={3} style={style.titleList}>
                     Highest avg age
                   </Title>
-                  <List data={list} />
+                  <List data={highestAverage} />
                 </Col>
                 <Col span={6} sm={12} xs={12}>
                   <Title level={3} style={style.titleList}>
                     Lowest avg age
                   </Title>
-                  <List data={list} />
+                  <List data={lowestAverage} />
                 </Col>
               </Row>
             </Body>
