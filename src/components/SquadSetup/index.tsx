@@ -1,34 +1,32 @@
 import React, { useState } from 'react';
+import { IPlayer } from '../../interfaces/player';
 import Button from '../../ui-components/Button';
 import Col from '../../ui-components/Col';
 import Row from '../../ui-components/Row';
 import Select from '../../ui-components/Select';
 import { squadFormations } from '../../utils/squadFormations';
+import Players from '../Players';
 import SquadField from '../SquadField';
 
-// import { Container } from './styles';
+interface IProps {
+  initialData?: IPlayer[];
+}
 
-const SquadSetup: React.FC = () => {
+const SquadSetup: React.FC<IProps> = ({ initialData }) => {
   const [formation, setFormation] = useState<string>(squadFormations[0].value);
-
-  const handleDrag = (e: any) => {
-    e.dataTransfer.setData(
-      'player',
-      JSON.stringify({ id: 123, name: 'Cristiano Ronaldo' }),
-    );
-  };
+  const [players, setPlayers] = useState<IPlayer[]>(initialData);
 
   const handleFormation = ({ value }: any) => {
     setFormation(value);
   };
 
+  const handlePlayers = (playersList: IPlayer[]) => {
+    setPlayers(playersList);
+  };
+
   return (
     <Row colgap={48} rowgap={16}>
       <Col span={6} md={12} sm={12} xs={12}>
-        <div draggable onDragStart={handleDrag} id="teste">
-          Teste
-        </div>
-
         <Select
           onChange={handleFormation}
           name="formation"
@@ -36,14 +34,19 @@ const SquadSetup: React.FC = () => {
           options={squadFormations}
         />
 
-        <SquadField formation={formation} />
+        <SquadField
+          name="formation"
+          formation={formation}
+          setPlayers={handlePlayers}
+          players={players}
+        />
 
         <Button block type="submit">
           Enviar
         </Button>
       </Col>
       <Col span={6} md={12} sm={12} xs={12}>
-        <h1>Busca</h1>
+        <Players currentPlayers={players} />
       </Col>
     </Row>
   );

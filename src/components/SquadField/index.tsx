@@ -1,4 +1,8 @@
-import React from 'react';
+/* eslint-disable no-param-reassign */
+/* eslint-disable react/no-array-index-key */
+import { useField } from '@unform/core';
+import React, { useEffect, useRef, useState } from 'react';
+import { IPlayer } from '../../interfaces/player';
 import DropPlayer from '../DropPlayer';
 import SoccerField from '../SoccerField';
 
@@ -6,11 +10,38 @@ import { Container, Content, GoalKeeper, PlayersRow, Column } from './styles';
 
 interface IProps {
   formation: string;
+  name: string;
+  players: IPlayer[];
+  setPlayers: (playersList: IPlayer[]) => void;
 }
 
-const SquadField: React.FC<IProps> = ({ formation }) => {
+const SquadField: React.FC<IProps> = ({
+  formation,
+  name,
+  players,
+  setPlayers,
+}) => {
+  const squadRef = useRef(null);
+  const { fieldName, registerField } = useField(name);
+
   const rows = formation.split('-');
   let count = 0;
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      ref: squadRef,
+      getValue: ref => {
+        return ref.current.value;
+      },
+      setValue: (ref, value) => {
+        ref.current.value = value;
+      },
+      clearValue: ref => {
+        ref.current.value = '';
+      },
+    });
+  }, [fieldName, registerField]);
 
   const handleCount = () => {
     for (let i = 0; i < rows.length; i += 1) {
@@ -21,22 +52,52 @@ const SquadField: React.FC<IProps> = ({ formation }) => {
     return count / 10;
   };
 
+  useEffect(() => {
+    if (squadRef.current) squadRef.current.value = null;
+  }, [formation]);
+
+  const handlePlayer = (player: IPlayer) => {
+    if (!players || players?.length === 0) {
+      setPlayers([player]);
+      if (squadRef.current) squadRef.current.value = [player];
+    } else {
+      const findPlayer = players.find(
+        item => item.position === player.position,
+      );
+      if (findPlayer) {
+        const filteredPlayers = players.filter(
+          item => item.position !== findPlayer.position,
+        );
+        setPlayers([...filteredPlayers, player]);
+        if (squadRef.current)
+          squadRef.current.value = [...filteredPlayers, player];
+      } else {
+        setPlayers([...players, player]);
+        if (squadRef.current) squadRef.current.value = [...players, player];
+      }
+    }
+  };
+
   return (
     <Container>
       <SoccerField layout="vertical" />
-      <Content>
+      <Content ref={squadRef}>
         {rows.reverse().map((row, i) => (
-          <PlayersRow>
+          <PlayersRow key={i}>
             {[...Array(Number(row))].map((col, j) => (
-              <Column>
-                <DropPlayer id={handleCount()} />
+              <Column key={j}>
+                <DropPlayer
+                  onChange={handlePlayer}
+                  id={handleCount()}
+                  formation={formation}
+                />
               </Column>
             ))}
           </PlayersRow>
         ))}
         <GoalKeeper>
           <Column>
-            <DropPlayer id={11} />
+            <DropPlayer onChange={handlePlayer} id={11} formation={formation} />
           </Column>
         </GoalKeeper>
       </Content>

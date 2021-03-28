@@ -8,10 +8,10 @@ export const Container = styled.div`
 export const StyledSelect = styled(ReactSelect)`
   > div {
     width: 100%;
-    background: ${({ theme }) => theme.colors.extraLight};
+    background: #fff;
     color: ${({ theme }) => theme.colors.mediumDark};
     border-radius: ${({ theme }) => theme.borderRadius};
-    border: 0;
+    border: 1px solid ${({ theme }) => theme.colors.light};
     -webkit-appearance: none;
     font-size: 1rem;
 
