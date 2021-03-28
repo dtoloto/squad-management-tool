@@ -19,13 +19,6 @@ const InputTag: React.FC<IProps> = ({ initialData = [], name, label }) => {
   const { fieldName, registerField, defaultValue } = useField(name);
 
   useEffect(() => {
-    if (defaultValue) {
-      setTags(defaultValue);
-      tagRef.current.value = `${[...defaultValue]}`;
-    }
-  }, [defaultValue]);
-
-  useEffect(() => {
     registerField({
       name: fieldName,
       ref: tagRef,
@@ -42,8 +35,11 @@ const InputTag: React.FC<IProps> = ({ initialData = [], name, label }) => {
   }, [fieldName, registerField]);
 
   useEffect(() => {
-    if (tagRef.current) tagRef.current.value = `${[...tags]}`;
-  }, [tagRef]);
+    if (tagRef.current) {
+      tagRef.current.value = `${[...defaultValue]}`;
+      setTags([...defaultValue]);
+    }
+  }, [tagRef, defaultValue]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;

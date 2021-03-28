@@ -67,9 +67,9 @@ const EditTeam: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
 
     try {
       formRef.current?.setErrors({});
-      await teamSchema.validate(formData, {
-        abortEarly: false,
-      });
+      // await teamSchema.validate(formData, {
+      //   abortEarly: false,
+      // });
       updateTeam({
         id: team.id,
         name,

@@ -29,7 +29,6 @@
     "prettier"
   ],
   "rules": {
-    // "react/jsx-one-expression-per-line": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "import/no-extraneous-dependencies": "off",
     "jsx-a11y/iframe-has-title": "off",
