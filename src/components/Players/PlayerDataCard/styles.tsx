@@ -13,6 +13,7 @@ export const PlayerData = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius};
   border: 1px dashed ${({ theme }) => theme.colors.mediumLight};
   margin-bottom: 1rem;
+  cursor: move;
 `;
 
 export const Label = styled.span`

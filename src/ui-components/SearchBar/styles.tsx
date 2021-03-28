@@ -12,6 +12,7 @@ export const Container = styled.label`
   align-items: center;
   color: ${({ theme }) => theme.colors.mediumDark};
   border: 1px solid ${({ theme }) => theme.colors.light};
+  margin-bottom: 1.5rem;
 
   svg {
     width: 16px;

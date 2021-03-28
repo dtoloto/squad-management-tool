@@ -17,4 +17,5 @@ export const Header = styled.div`
 
 export const Body = styled.div`
   padding: 1.5rem 1rem;
+  width: 100%;
 `;

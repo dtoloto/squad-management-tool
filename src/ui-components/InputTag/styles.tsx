@@ -9,6 +9,7 @@ export const Container = styled.label`
   padding: 10px 15px;
   border-radius: ${({ theme }) => theme.borderRadius};
   border: 1px solid ${({ theme }) => theme.colors.light};
+  margin-bottom: 1.5rem;
 `;
 
 export const Label = styled.label`

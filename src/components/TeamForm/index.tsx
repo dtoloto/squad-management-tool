@@ -9,7 +9,7 @@ import { teamTypes } from '../../utils/teamType';
 
 const TeamForm: React.FC = () => {
   return (
-    <Row colgap={48} rowgap={16}>
+    <Row colgap={24} rowgap={24}>
       <Col span={6} md={12} sm={12} xs={12}>
         <Input name="name" label="Team name" placeholder="Insert team name" />
         <Textarea name="description" label="Description" />

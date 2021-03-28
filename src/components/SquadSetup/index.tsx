@@ -25,7 +25,7 @@ const SquadSetup: React.FC<IProps> = ({ initialData }) => {
   };
 
   return (
-    <Row colgap={48} rowgap={16}>
+    <Row colgap={24} rowgap={24}>
       <Col span={6} md={12} sm={12} xs={12}>
         <Select
           onChange={handleFormation}

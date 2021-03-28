@@ -92,6 +92,8 @@ const NewTeam: React.FC = () => {
                   Team Information
                 </Title>
                 <TeamForm />
+                <br />
+                <br />
                 <Title style={style.formSubtitle} level={3}>
                   Configure Squad
                 </Title>
