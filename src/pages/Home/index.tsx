@@ -54,18 +54,24 @@ const Home: React.FC = () => {
   const [lowestAverage, setLowestAverage] = useState<ITeamAverage[]>([]);
 
   useEffect(() => {
+    setData(
+      teams.map(team => ({
+        ...team,
+        key: team?.id,
+        link: `/edit/${team?.id}`,
+      })),
+    );
     if (teams.length > 0) {
-      setData(
-        teams.map(team => ({
-          ...team,
-          key: team.id,
-          link: `/edit/${team.id}`,
-        })),
-      );
       setMostPicked(pickedPlayer(teams, 'highest'));
       setLessPicked(pickedPlayer(teams, 'lowest'));
       setHighestAverage(ageAverage(teams, 'highest'));
       setLowestAverage(ageAverage(teams, 'lowest'));
+    }
+    if (teams.length === 0) {
+      setMostPicked(null);
+      setLessPicked(null);
+      setHighestAverage([]);
+      setLowestAverage([]);
     }
   }, [teams]);
 

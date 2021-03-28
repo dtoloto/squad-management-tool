@@ -49,13 +49,14 @@ const SquadSetup: React.FC<IProps> = ({ initialData }) => {
           setPlayers={handlePlayers}
           players={players}
         />
-
-        <Button block type="submit">
-          Enviar
-        </Button>
       </Col>
       <Col span={6} md={12} sm={12} xs={12}>
         <Players currentPlayers={players} />
+      </Col>
+      <Col span={6} md={12} sm={12} xs={12}>
+        <Button block type="submit">
+          Save
+        </Button>
       </Col>
     </Row>
   );

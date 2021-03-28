@@ -4,6 +4,12 @@ export const Container = styled.div``;
 
 export const Content = styled.div`
   display: flex;
+
+  @media screen and (max-width: 1036px) and (min-width: 900px) {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `;
 
 export const Label = styled.p`
@@ -11,6 +17,10 @@ export const Label = styled.p`
   color: #fff;
   margin-bottom: 1.5rem;
   font-weight: bold;
+
+  @media screen and (max-width: 1036px) and (min-width: 900px) {
+    font-size: 1.3rem;
+  }
 `;
 
 export const AvatarBox = styled.div`
@@ -23,6 +33,10 @@ export const Score = styled.p`
   font-weight: bold;
   color: #fff;
   position: relative;
+
+  @media screen and (max-width: 1036px) and (min-width: 900px) {
+    margin-bottom: 1.5rem;
+  }
 
   &:after {
     position: absolute;
