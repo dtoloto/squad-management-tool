@@ -22,7 +22,7 @@ const DropPlayer: React.FC<IProps> = ({
   const [player, setPlayer] = useState<IPlayer>();
 
   useEffect(() => {
-    setPlayer(null);
+    if (!initialData) setPlayer(null);
   }, [formation]);
 
   useEffect(() => {

@@ -10,6 +10,7 @@ interface Props extends SelectProps<OptionTypeBase> {
   label?: string;
   style?: CSSProperties;
   options?: any[];
+  setDefault?: (params: any) => void;
 }
 
 const Select: React.FC<Props> = ({
@@ -17,10 +18,17 @@ const Select: React.FC<Props> = ({
   style,
   label,
   options = [],
+  setDefault,
   ...rest
 }) => {
   const selectRef = useRef(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
+
+  useEffect(() => {
+    if (defaultValue && setDefault) {
+      setDefault({ value: defaultValue });
+    }
+  }, [defaultValue]);
 
   useEffect(() => {
     registerField({

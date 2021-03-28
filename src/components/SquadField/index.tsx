@@ -10,6 +10,7 @@ import { Container, Content, GoalKeeper, PlayersRow, Column } from './styles';
 
 interface IProps {
   formation: string;
+  defaultFormation?: string;
   name: string;
   players: IPlayer[];
   setPlayers: (playersList: IPlayer[]) => void;
@@ -17,14 +18,14 @@ interface IProps {
 
 const SquadField: React.FC<IProps> = ({
   formation,
+  defaultFormation,
   name,
   players,
   setPlayers,
 }) => {
   const squadRef = useRef(null);
   const { fieldName, registerField, error, defaultValue } = useField(name);
-
-  const rows = formation.split('-');
+  const [rows, setRows] = useState<string[]>([]);
   let count = 0;
 
   useEffect(() => {
@@ -54,7 +55,14 @@ const SquadField: React.FC<IProps> = ({
 
   useEffect(() => {
     if (squadRef.current) squadRef.current.value = null;
+    setRows(formation.split('-').reverse());
   }, [formation]);
+
+  useEffect(() => {
+    if (defaultFormation) {
+      setRows(defaultFormation.split('-').reverse());
+    }
+  }, [defaultFormation]);
 
   useEffect(() => {
     if (defaultValue) {
@@ -89,7 +97,7 @@ const SquadField: React.FC<IProps> = ({
     <Container className={error ? 'error' : ''}>
       <SoccerField layout="vertical" />
       <Content ref={squadRef}>
-        {rows.reverse().map((row, i) => (
+        {rows.map((row, i) => (
           <PlayersRow key={i}>
             {[...Array(Number(row))].map((col, j) => (
               <Column key={j}>

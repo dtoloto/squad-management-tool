@@ -14,7 +14,14 @@ interface IProps {
 
 const SquadSetup: React.FC<IProps> = ({ initialData }) => {
   const [formation, setFormation] = useState<string>(squadFormations[0].value);
+  const [defaultformation, setDefaultFormation] = useState<string>(
+    squadFormations[0].value,
+  );
   const [players, setPlayers] = useState<IPlayer[]>(initialData);
+
+  const handleDefaultFormation = ({ value }: any) => {
+    setDefaultFormation(value);
+  };
 
   const handleFormation = ({ value }: any) => {
     setFormation(value);
@@ -32,11 +39,13 @@ const SquadSetup: React.FC<IProps> = ({ initialData }) => {
           name="formation"
           label="Formation"
           options={squadFormations}
+          setDefault={handleDefaultFormation}
         />
 
         <SquadField
           name="squad"
           formation={formation}
+          defaultFormation={defaultformation}
           setPlayers={handlePlayers}
           players={players}
         />

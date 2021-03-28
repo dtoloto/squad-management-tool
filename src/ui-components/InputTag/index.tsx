@@ -36,8 +36,12 @@ const InputTag: React.FC<IProps> = ({ initialData = [], name, label }) => {
 
   useEffect(() => {
     if (tagRef.current) {
-      tagRef.current.value = `${[...defaultValue]}`;
-      setTags([...defaultValue]);
+      if (defaultValue) {
+        tagRef.current.value = `${[...defaultValue]}`;
+        setTags([...defaultValue]);
+      } else {
+        tagRef.current.value = `${[...tags]}`;
+      }
     }
   }, [tagRef, defaultValue]);
 
