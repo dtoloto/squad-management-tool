@@ -22,7 +22,7 @@ const SquadField: React.FC<IProps> = ({
   setPlayers,
 }) => {
   const squadRef = useRef(null);
-  const { fieldName, registerField, error } = useField(name);
+  const { fieldName, registerField, error, defaultValue } = useField(name);
 
   const rows = formation.split('-');
   let count = 0;
@@ -55,6 +55,13 @@ const SquadField: React.FC<IProps> = ({
   useEffect(() => {
     if (squadRef.current) squadRef.current.value = null;
   }, [formation]);
+
+  useEffect(() => {
+    if (defaultValue) {
+      setPlayers([...defaultValue]);
+      if (squadRef.current) squadRef.current.value = [...defaultValue];
+    }
+  }, [defaultValue]);
 
   const handlePlayer = (player: IPlayer) => {
     if (!players || players?.length === 0) {
@@ -90,6 +97,7 @@ const SquadField: React.FC<IProps> = ({
                   onChange={handlePlayer}
                   id={handleCount()}
                   formation={formation}
+                  initialData={defaultValue}
                 />
               </Column>
             ))}
@@ -97,7 +105,12 @@ const SquadField: React.FC<IProps> = ({
         ))}
         <GoalKeeper>
           <Column>
-            <DropPlayer onChange={handlePlayer} id={11} formation={formation} />
+            <DropPlayer
+              initialData={defaultValue}
+              onChange={handlePlayer}
+              id={11}
+              formation={formation}
+            />
           </Column>
         </GoalKeeper>
       </Content>

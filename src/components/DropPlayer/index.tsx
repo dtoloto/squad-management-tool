@@ -10,14 +10,29 @@ interface IProps {
   id: number;
   formation: string;
   onChange: (param: IPlayer) => void;
+  initialData?: IPlayer[];
 }
 
-const DropPlayer: React.FC<IProps> = ({ id, formation, onChange }) => {
+const DropPlayer: React.FC<IProps> = ({
+  id,
+  formation,
+  onChange,
+  initialData,
+}) => {
   const [player, setPlayer] = useState<IPlayer>();
 
   useEffect(() => {
     setPlayer(null);
   }, [formation]);
+
+  useEffect(() => {
+    if (initialData) {
+      const initialPlayer = initialData.find(item => item.position === id);
+      if (initialPlayer) {
+        setPlayer(initialPlayer);
+      }
+    }
+  }, [initialData]);
 
   const handleDrop = (e: any) => {
     e.preventDefault();

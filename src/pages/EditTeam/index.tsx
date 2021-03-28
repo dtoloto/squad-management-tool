@@ -64,22 +64,23 @@ const EditTeam: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
       formation,
       squad,
     } = formData;
+
     try {
       formRef.current?.setErrors({});
       await teamSchema.validate(formData, {
         abortEarly: false,
       });
-      // updateTeam({
-      //   id: Date.now(),
-      //   name,
-      //   description,
-      //   tags: tags.split(','),
-      //   website,
-      //   type,
-      //   formation,
-      //   players: squad,
-      // });
-      // history.push('/');
+      updateTeam({
+        id: team.id,
+        name,
+        description,
+        tags: tags.split(','),
+        website,
+        type,
+        formation,
+        players: squad,
+      });
+      history.push('/');
     } catch (err) {
       const errors = getValidationErrors(err);
       formRef.current?.setErrors(errors);
@@ -104,6 +105,7 @@ const EditTeam: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
                     type: team?.type,
                     description: team?.description,
                     formation: team?.formation,
+                    squad: team?.players,
                     website: team?.website,
                     tags: team?.tags,
                   }}
