@@ -14,6 +14,7 @@ export const StyledSelect = styled(ReactSelect)`
     border: 1px solid ${({ theme }) => theme.colors.light};
     -webkit-appearance: none;
     font-size: 1rem;
+    padding: 2px 15px;
 
     &.error {
       border-color: ${({ theme }) => theme.colors.danger};

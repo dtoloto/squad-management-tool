@@ -16,4 +16,5 @@ export interface TeamsContextData {
   createTeam: (team: TeamData) => void;
   getTeam: (id: string | number) => TeamData | undefined;
   deleteTeam: (id: string | number) => void;
+  updateTeam: (team: TeamData) => void;
 }

@@ -47,7 +47,7 @@ const data: TeamData[] = [
     website: 'https://corinthians.com',
     type: 'fantasy',
     tags: ['timao'],
-    formation: '4-2-4-2',
+    formation: '4-5-1',
     players: [
       {
         id: 1,
@@ -82,7 +82,7 @@ const data: TeamData[] = [
     website: 'https://brazil.com',
     type: 'fantasy',
     tags: ['br'],
-    formation: '4-3-4-1',
+    formation: '4-3-2-1',
     players: [
       {
         id: 1,
@@ -117,7 +117,7 @@ const data: TeamData[] = [
     website: 'https://portugal.com',
     type: 'fantasy',
     tags: ['pt'],
-    formation: '4-3-4-1',
+    formation: '4-3-2-1',
     players: [
       {
         id: 1,
@@ -156,7 +156,7 @@ const TeamsProvider: React.FC = ({ children }) => {
 
   const getTeam = useCallback(
     (id: string | number) => {
-      return teams.find(team => team.id === id);
+      return teams.find(team => Number(team.id) === Number(id));
     },
     [teams],
   );
@@ -165,6 +165,16 @@ const TeamsProvider: React.FC = ({ children }) => {
     setTeams(item => item.filter(team => team.id !== id));
   }, []);
 
+  const updateTeam = useCallback(
+    (team: TeamData) => {
+      const currentTeams = teams;
+      const findIndex = teams.findIndex(findTeam => findTeam.id === team.id);
+      currentTeams[findIndex] = team;
+      setTeams(currentTeams);
+    },
+    [teams],
+  );
+
   return (
     <TeamsContext.Provider
       value={{
@@ -172,6 +182,7 @@ const TeamsProvider: React.FC = ({ children }) => {
         createTeam,
         getTeam,
         deleteTeam,
+        updateTeam,
       }}
     >
       {children}

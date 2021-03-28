@@ -16,7 +16,13 @@ const InputTag: React.FC<IProps> = ({ initialData = [], name, label }) => {
   const [tags, setTags] = useState<string[]>(initialData);
   const inputRef = useRef<HTMLInputElement>(null);
   const tagRef = useRef<HTMLInputElement>(null);
-  const { fieldName, registerField } = useField(name);
+  const { fieldName, registerField, defaultValue } = useField(name);
+
+  useEffect(() => {
+    if (defaultValue) {
+      setTags(defaultValue);
+    }
+  }, [defaultValue]);
 
   useEffect(() => {
     registerField({
