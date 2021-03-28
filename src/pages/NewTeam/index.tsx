@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { CSSProperties } from 'styled-components';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
+import { useHistory } from 'react-router';
 import Card, { Body, Header } from '../../ui-components/Card';
 import Col from '../../ui-components/Col';
 import Row from '../../ui-components/Row';
@@ -14,6 +15,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import { teamTypes } from '../../utils/teamType';
 import SquadSetup from '../../components/SquadSetup';
 import { squadFormations } from '../../utils/squadFormations';
+import { useTeams } from '../../context/TeamsContext';
 
 interface IStyle {
   [key: string]: CSSProperties;
@@ -34,18 +36,38 @@ const style: IStyle = {
 
 const NewTeam: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { createTeam } = useTeams();
+  const history = useHistory();
 
   const handleSubmit = async (formData: any) => {
-    console.log(formData);
+    const {
+      name,
+      description,
+      tags,
+      type,
+      website,
+      formation,
+      squad,
+    } = formData;
     try {
       formRef.current?.setErrors({});
       await teamSchema.validate(formData, {
         abortEarly: false,
       });
+      createTeam({
+        id: Date.now(),
+        name,
+        description,
+        tags: tags.split(','),
+        website,
+        type,
+        formation,
+        players: squad,
+      });
+      history.push('/');
     } catch (err) {
       const errors = getValidationErrors(err);
       formRef.current?.setErrors(errors);
-      console.log(errors);
     }
   };
 

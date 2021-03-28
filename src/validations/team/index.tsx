@@ -5,5 +5,5 @@ export const teamSchema = Yup.object().shape({
   website: Yup.string()
     .matches(/^(http|https):\/\/[^ "]+$/)
     .required(),
-  formation: Yup.array().length(11).required(),
+  squad: Yup.array().length(11).required(),
 });

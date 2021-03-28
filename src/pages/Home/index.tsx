@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import Button from '../../ui-components/Button';
 import Card, { Header, Body } from '../../ui-components/Card';
@@ -10,6 +10,13 @@ import { Section } from '../../ui-components/Section';
 import Table from '../../ui-components/Table';
 import Title from '../../ui-components/Title';
 import theme from '../../styles/theme';
+import { useTeams } from '../../context/TeamsContext';
+import { IData } from '../../ui-components/Table/interfaces';
+import {
+  IFeaturedPlayer,
+  mostPickedPlayer,
+  lessPickedPlayer,
+} from '../../utils/teamsData';
 
 const header = [
   {
@@ -23,27 +30,6 @@ const header = [
     dataIndex: 'description',
     title: 'Description',
     sort: true,
-  },
-];
-
-const data = [
-  {
-    key: '1',
-    name: 'Barcelona',
-    description: 'ZBarcelona Squad',
-    link: '/edit/1',
-  },
-  {
-    key: '2',
-    name: 'Real Madrid',
-    description: 'AReal Madrid Squad',
-    link: '/edit/2',
-  },
-  {
-    key: '3',
-    name: 'Corinthians',
-    description: 'Corinthians Squad',
-    link: '/edit/3',
   },
 ];
 
@@ -87,6 +73,19 @@ const style = {
 };
 
 const Home: React.FC = () => {
+  const { teams } = useTeams();
+  const [data, setData] = useState<IData[]>([]);
+  const [lessPicked, setLessPicked] = useState<IFeaturedPlayer>();
+  const [mostPicked, setMostPicked] = useState<IFeaturedPlayer>();
+
+  useEffect(() => {
+    setData(
+      teams.map(team => ({ ...team, key: team.id, link: `/edit/${team.id}` })),
+    );
+    setMostPicked(mostPickedPlayer(teams));
+    setLessPicked(lessPickedPlayer(teams));
+  }, [teams]);
+
   return (
     <Section>
       <Row colgap={24} rowgap={24}>
@@ -125,7 +124,10 @@ const Home: React.FC = () => {
               </Row>
             </Body>
           </Card>
-          <HighlightPlayers />
+          <HighlightPlayers
+            mostPickedPlayer={mostPicked}
+            lessPickedPlayer={lessPicked}
+          />
         </Col>
       </Row>
     </Section>

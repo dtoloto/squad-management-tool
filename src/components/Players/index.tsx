@@ -5,12 +5,15 @@ import PlayerDataCard from './PlayerDataCard';
 
 import { Container, Results } from './styles';
 import { IPlayer } from '../../interfaces/player';
+import { PlayerSkeleton } from './PlayerSkeleton';
+import IF from '../IF';
 
 interface IProps {
   currentPlayers: IPlayer[];
 }
 
 const Players: React.FC<IProps> = ({ currentPlayers }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [player, setPlayer] = useState<string>();
   const [players, setPlayers] = useState<IPlayer[]>([]);
 
@@ -27,6 +30,7 @@ const Players: React.FC<IProps> = ({ currentPlayers }) => {
     setPlayer(value);
     if (value.length >= 4) {
       try {
+        setLoading(true);
         const { data } = await api.get('/players', {
           params: {
             league: 1,
@@ -61,6 +65,7 @@ const Players: React.FC<IProps> = ({ currentPlayers }) => {
       } catch (err) {
         console.log(err);
       }
+      setLoading(false);
     }
   };
 
@@ -73,9 +78,14 @@ const Players: React.FC<IProps> = ({ currentPlayers }) => {
         value={player}
       />
       <Results>
-        {players.map(item => (
-          <PlayerDataCard key={item.id} player={item} />
-        ))}
+        <IF condition={loading}>
+          <PlayerSkeleton />
+        </IF>
+        <IF condition={!loading}>
+          {players.map(item => (
+            <PlayerDataCard key={item.id} player={item} />
+          ))}
+        </IF>
       </Results>
     </Container>
   );

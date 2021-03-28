@@ -6,6 +6,7 @@ import theme from './styles/theme';
 import Routes from './routes';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { TeamsProvider } from './context/TeamsContext';
 
 const App: React.FC = () => {
   return (
@@ -13,7 +14,9 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Navbar />
-        <Routes />
+        <TeamsProvider>
+          <Routes />
+        </TeamsProvider>
         <Footer>2020 - All rights reserved</Footer>
       </ThemeProvider>
     </Router>

@@ -35,7 +35,7 @@ const SquadSetup: React.FC<IProps> = ({ initialData }) => {
         />
 
         <SquadField
-          name="formation"
+          name="squad"
           formation={formation}
           setPlayers={handlePlayers}
           players={players}

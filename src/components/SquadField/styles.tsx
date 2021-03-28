@@ -3,6 +3,17 @@ import styled from 'styled-components';
 export const Container = styled.div`
   margin-bottom: 2rem;
   position: relative;
+  border: 3px solid #fff;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  background: linear-gradient(
+    to bottom right,
+    ${({ theme }) => theme.colors.secondary} -50%,
+    ${({ theme }) => theme.colors.primary} 110%
+  );
+
+  &.error {
+    border: 3px solid ${({ theme }) => theme.colors.secondary};
+  }
 `;
 
 export const Content = styled.div`
@@ -11,7 +22,6 @@ export const Content = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: blue; */
   display: flex;
   flex-direction: column;
 `;
@@ -21,17 +31,16 @@ export const PlayersRow = styled.div`
   flex: auto;
   display: flex;
   justify-content: space-around;
-  padding: 5px;
 `;
 
 export const Column = styled.div`
   width: 100%;
   color: #fff;
-  margin: 1px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+
   &:after {
     padding-bottom: 100%;
   }
@@ -39,7 +48,7 @@ export const Column = styled.div`
 
 export const GoalKeeper = styled.div`
   width: 100%;
-  padding: 5px;
+  /* padding: 5px; */
   align-self: flex-end;
   width: 100%;
   flex: 1;

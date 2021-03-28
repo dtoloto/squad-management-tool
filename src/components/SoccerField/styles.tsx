@@ -11,7 +11,7 @@ export const Container = styled.div<IProps>`
   width: 100%;
   padding-top: ${({ layout }) =>
     layout === 'horizontal' ? horizontal : vertical};
-  background: blue;
+  border-radius: ${({ theme }) => theme.borderRadius};
   position: relative;
 
   background: linear-gradient(

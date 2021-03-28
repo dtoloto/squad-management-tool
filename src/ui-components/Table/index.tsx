@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TiArrowUnsorted } from 'react-icons/ti';
 import { MdEdit, MdDelete } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -17,6 +17,8 @@ import {
 import Tooltip from '../Tooltip';
 import { Icon } from '../Icon';
 import theme from '../../styles/theme';
+import Empty from '../Empty';
+import { useTeams } from '../../context/TeamsContext';
 
 interface IProps {
   header: IHead[];
@@ -31,6 +33,11 @@ interface ISort {
 const Table: React.FC<IProps> = ({ header, data }) => {
   const [sortedData, setSortedData] = useState<IData[]>(data);
   const [filter, setFilter] = useState<ISort>();
+  const { deleteTeam } = useTeams();
+
+  useEffect(() => {
+    setSortedData(data);
+  }, [data]);
 
   const handleSort = async (key: string) => {
     data.sort((a, b) => {
@@ -61,7 +68,7 @@ const Table: React.FC<IProps> = ({ header, data }) => {
   };
 
   const handleDelete = (item: string | number) => {
-    console.log(item);
+    deleteTeam(item);
   };
 
   return (
@@ -114,6 +121,9 @@ const Table: React.FC<IProps> = ({ header, data }) => {
           ))}
         </tbody>
       </Container>
+      <IF condition={data.length === 0}>
+        <Empty />
+      </IF>
     </ResponsiveTable>
   );
 };

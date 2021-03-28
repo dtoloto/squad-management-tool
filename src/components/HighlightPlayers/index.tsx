@@ -2,29 +2,48 @@ import React from 'react';
 import theme from '../../styles/theme';
 import SoccerField from '../SoccerField';
 import PlayerCard from './PlayerCard';
-
+import { IFeaturedPlayer } from '../../utils/teamsData';
 import { Container, Content, FirstCard, SecondCard } from './styles';
+import IF from '../IF';
+import Empty from '../../ui-components/Empty';
 
 const styles = {
   soccerField: { borderRadius: theme.borderRadius },
 };
 
-const HighlightPlayers: React.FC = () => {
+interface IProps {
+  mostPickedPlayer: IFeaturedPlayer;
+  lessPickedPlayer: IFeaturedPlayer;
+}
+
+const HighlightPlayers: React.FC<IProps> = ({
+  mostPickedPlayer,
+  lessPickedPlayer,
+}) => {
   return (
     <Container>
       <SoccerField layout="horizontal" style={styles.soccerField} />
       <Content>
-        <FirstCard>
-          <PlayerCard
-            player="RR"
-            score={75}
-            label="Most picked player"
-            featured
-          />
-        </FirstCard>
-        <SecondCard>
-          <PlayerCard player="RR" score={25} label="Less picked player" />
-        </SecondCard>
+        <IF condition={!!mostPickedPlayer && !!lessPickedPlayer}>
+          <FirstCard>
+            <PlayerCard
+              player={mostPickedPlayer?.initials}
+              score={mostPickedPlayer?.percentage}
+              label="Most picked player"
+              featured
+            />
+          </FirstCard>
+          <SecondCard>
+            <PlayerCard
+              player={lessPickedPlayer?.initials}
+              score={lessPickedPlayer?.percentage}
+              label="Less picked player"
+            />
+          </SecondCard>
+        </IF>
+        <IF condition={!mostPickedPlayer || !lessPickedPlayer}>
+          <Empty style={{ color: '#fff' }} />
+        </IF>
       </Content>
     </Container>
   );

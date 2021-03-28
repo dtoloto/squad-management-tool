@@ -7,8 +7,6 @@ import Row from '../../ui-components/Row';
 import Textarea from '../../ui-components/Textarea';
 import { teamTypes } from '../../utils/teamType';
 
-const tags = ['teste', 'teste1'];
-
 const TeamForm: React.FC = () => {
   return (
     <Row colgap={48} rowgap={16}>
@@ -23,7 +21,7 @@ const TeamForm: React.FC = () => {
           placeholder="http://myteam.com"
         />
         <RadioInput label="Team type" name="type" options={teamTypes} />
-        <InputTag name="tags" label="Tags" initialData={tags} />
+        <InputTag name="tags" label="Tags" />
       </Col>
     </Row>
   );

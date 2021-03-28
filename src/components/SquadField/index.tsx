@@ -22,7 +22,7 @@ const SquadField: React.FC<IProps> = ({
   setPlayers,
 }) => {
   const squadRef = useRef(null);
-  const { fieldName, registerField } = useField(name);
+  const { fieldName, registerField, error } = useField(name);
 
   const rows = formation.split('-');
   let count = 0;
@@ -79,7 +79,7 @@ const SquadField: React.FC<IProps> = ({
   };
 
   return (
-    <Container>
+    <Container className={error ? 'error' : ''}>
       <SoccerField layout="vertical" />
       <Content ref={squadRef}>
         {rows.reverse().map((row, i) => (
