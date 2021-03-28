@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { IPlayer } from '../../interfaces/player';
 import { Icon } from '../../ui-components/Icon';
+import { PlayerBox, PlayerData } from '../../ui-components/PlayerTooltip';
 import IF from '../IF';
 
 import { Container } from './styles';
@@ -59,7 +60,16 @@ const DropPlayer: React.FC<IProps> = ({
           <FaPlus />
         </Icon>
       </IF>
-      <IF condition={!!player}>{player?.initials}</IF>
+      <IF condition={!!player}>
+        <PlayerBox>
+          <PlayerData>
+            <p>{`Name: ${player?.name}`}</p>
+            <p>{`Age: ${player?.age}`}</p>
+            <p>{`Nationality: ${player?.nationality}`}</p>
+          </PlayerData>
+          <span>{player?.initials}</span>
+        </PlayerBox>
+      </IF>
     </Container>
   );
 };
