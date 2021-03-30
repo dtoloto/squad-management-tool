@@ -96,7 +96,7 @@ const SquadField: React.FC<IProps> = ({
   return (
     <Container className={error ? 'error' : ''}>
       <SoccerField layout="vertical" />
-      <Content ref={squadRef}>
+      <Content ref={squadRef} data-testid="squad-field">
         {rows.map((row, i) => (
           <PlayersRow key={i}>
             {[...Array(Number(row))].map((col, j) => (

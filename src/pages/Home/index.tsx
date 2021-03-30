@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
+import { useHistory, Link } from 'react-router-dom';
 import Button from '../../ui-components/Button';
 import Card, { Header, Body } from '../../ui-components/Card';
 import Col from '../../ui-components/Col';
@@ -52,28 +53,36 @@ const Home: React.FC = () => {
   const [mostPicked, setMostPicked] = useState<IFeaturedPlayer>();
   const [highestAverage, setHighestAverage] = useState<ITeamAverage[]>([]);
   const [lowestAverage, setLowestAverage] = useState<ITeamAverage[]>([]);
+  const history = useHistory();
 
   useEffect(() => {
-    setData(
-      teams.map(team => ({
-        ...team,
-        key: team?.id,
-        link: `/edit/${team?.id}`,
-      })),
-    );
-    if (teams.length > 0) {
-      setMostPicked(pickedPlayer(teams, 'highest'));
-      setLessPicked(pickedPlayer(teams, 'lowest'));
-      setHighestAverage(ageAverage(teams, 'highest'));
-      setLowestAverage(ageAverage(teams, 'lowest'));
-    }
-    if (teams.length === 0) {
-      setMostPicked(null);
-      setLessPicked(null);
-      setHighestAverage([]);
-      setLowestAverage([]);
+    if (teams) {
+      setData(
+        teams.map(team => ({
+          ...team,
+          key: team?.id,
+          link: `/edit/${team?.id}`,
+        })),
+      );
+
+      if (teams.length > 0) {
+        setMostPicked(pickedPlayer(teams, 'highest'));
+        setLessPicked(pickedPlayer(teams, 'lowest'));
+        setHighestAverage(ageAverage(teams, 'highest'));
+        setLowestAverage(ageAverage(teams, 'lowest'));
+      }
+      if (teams.length === 0) {
+        setMostPicked(null);
+        setLessPicked(null);
+        setHighestAverage([]);
+        setLowestAverage([]);
+      }
     }
   }, [teams]);
+
+  const handleNewTeam = () => {
+    history.push('/new');
+  };
 
   return (
     <Section>
@@ -82,9 +91,11 @@ const Home: React.FC = () => {
           <Card style={style.teamsCard}>
             <Header>
               <Title level={2}>My Teams</Title>
-              <Button link="/new">
-                <FaPlus />
-              </Button>
+              <Link to="/new">
+                <Button onClick={handleNewTeam} data-testid="custom-element">
+                  <FaPlus />
+                </Button>
+              </Link>
             </Header>
             <Body>
               <Table header={header} data={data} />
@@ -102,13 +113,13 @@ const Home: React.FC = () => {
                   <Title level={3} style={style.titleList}>
                     Highest avg age
                   </Title>
-                  <List data={highestAverage} />
+                  <List data={highestAverage} type="highest" />
                 </Col>
                 <Col span={6} sm={12} xs={12}>
                   <Title level={3} style={style.titleList}>
                     Lowest avg age
                   </Title>
-                  <List data={lowestAverage} />
+                  <List data={lowestAverage} type="lowest" />
                 </Col>
               </Row>
             </Body>

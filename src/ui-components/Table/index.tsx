@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { TiArrowUnsorted } from 'react-icons/ti';
 import { MdEdit, MdDelete } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import _ from 'lodash';
 import IF from '../../components/IF';
 import { IData, IHead } from './interfaces';
 
@@ -19,6 +20,7 @@ import { Icon } from '../Icon';
 import theme from '../../styles/theme';
 import Empty from '../Empty';
 import { useTeams } from '../../context/TeamsContext';
+import usePrevious from '../../hooks/usePrevious';
 
 interface IProps {
   header: IHead[];
@@ -30,13 +32,21 @@ interface ISort {
   type: 'asc' | 'dsc';
 }
 
+const styles = {
+  icon: { cursor: 'pointer' },
+};
+
 const Table: React.FC<IProps> = ({ header, data }) => {
+  const previousData = usePrevious(data);
   const [sortedData, setSortedData] = useState<IData[]>(data);
   const [filter, setFilter] = useState<ISort>();
   const { deleteTeam } = useTeams();
+  const history = useHistory();
 
   useEffect(() => {
-    setSortedData(data);
+    if (previousData && !_.isEqual(previousData, data)) {
+      setSortedData(data);
+    }
   }, [data]);
 
   const handleSort = async (key: string) => {
@@ -71,6 +81,10 @@ const Table: React.FC<IProps> = ({ header, data }) => {
     deleteTeam(item);
   };
 
+  const handleUpdate = (link: string) => {
+    history.push(link);
+  };
+
   return (
     <ResponsiveTable>
       <Container>
@@ -94,21 +108,26 @@ const Table: React.FC<IProps> = ({ header, data }) => {
         </THEAD>
         <tbody>
           {sortedData.map(item => (
-            <TR key={item.key}>
+            <TR key={item.key} data-testid="table-content">
               {header.map(head => (
                 <TD key={`${item.key}_${head.key}`}>{item[head.dataIndex]}</TD>
               ))}
               <TD style={{ textAlign: 'right', color: theme.colors.secondary }}>
                 <Tooltip label="Edit">
-                  <Link to={item.link}>
-                    <Icon>
-                      <MdEdit />
-                    </Icon>
-                  </Link>
+                  <Icon
+                    data-testid={item.link}
+                    style={styles.icon}
+                    onClick={() => {
+                      handleUpdate(item.link);
+                    }}
+                  >
+                    <MdEdit />
+                  </Icon>
                 </Tooltip>
                 <Tooltip label="Delete">
                   <Icon
-                    style={{ cursor: 'pointer' }}
+                    data-testid={item.key}
+                    style={styles.icon}
                     onClick={() => {
                       handleDelete(item.key);
                     }}

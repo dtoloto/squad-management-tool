@@ -26,6 +26,7 @@ const Button: React.FC<IProps> = ({
   block = false,
   disabled = false,
   style,
+  ...rest
 }) => {
   const history = useHistory();
   const handleClick = () => {
@@ -42,10 +43,11 @@ const Button: React.FC<IProps> = ({
       block={block}
       type={type}
       onClick={handleClick}
-      loading={loading}
+      loading={loading ? true : undefined}
       style={style}
+      {...rest}
     >
-      <IF condition={loading}>
+      <IF condition={!!loading}>
         <Loading />
       </IF>
       {children}
