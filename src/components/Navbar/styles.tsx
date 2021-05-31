@@ -20,4 +20,5 @@ export const Logo = styled.img`
   height: 100%;
   margin-right: 1rem;
   filter: grayscale(1) brightness(0) invert(1);
+  max-width: 250px;
 `;
